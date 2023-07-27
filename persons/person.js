@@ -42,6 +42,7 @@ router.get('/person/:id',  (req, res) => {
 router.get('/person',  (req, res) => {
     personModel.findAll({
         include: { model: positionModel},
+        order: [['createdAt', 'DESC']]
     }).then((response) => {
         if(response) {
             res.json(response);
@@ -50,3 +51,5 @@ router.get('/person',  (req, res) => {
         }
     }).catch(err => console.error('Error in create categoy', err));
 });
+
+module.exports = router;

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const connection = require('../database/database');
 const positionModel = require('../positions/positions.model');
 
-const personModel = connection.define('People', {
+const personModel = connection.define('people', {
     id: {
         type: Sequelize.STRING,
         primaryKey: true,

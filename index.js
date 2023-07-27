@@ -13,6 +13,7 @@ app.use(cors());
 
 //routers variables
 const position = require('./positions/position');
+const person = require('./persons/person');
 
 //sequelize models
 const personModel = require('./persons/person.model');
@@ -34,3 +35,4 @@ app.listen(port, () => {
 });
 
 app.use('/', position);
+app.use('/', person);

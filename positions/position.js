@@ -7,6 +7,7 @@ const crypto = require('crypto');
 router.get('/positions',  (req, res) => {
     positionModel.findAll({
         include: { model: personModel},
+        order: [['createdAt', 'DESC']]
     }).then((response) => {
         if(response) {
             res.json(response);
