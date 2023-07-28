@@ -6,7 +6,7 @@ const crypto = require('crypto');
 
 
 router.post('/person', (req, res) => {
-    const {name, email, phone, city, photo, positionId} = req.body;
+    const {name, email, phone, city, photo, positionId, managerId} = req.body;
     if(req.body){
         personModel.create({
             id: crypto.randomUUID(),
@@ -15,7 +15,8 @@ router.post('/person', (req, res) => {
             phone: phone,
             city: city,
             photo: photo,
-            positionId: positionId
+            positionId: positionId,
+            managerId: managerId
         }).then((response) => {
             if(response) {
                 res.json(response);
@@ -32,7 +33,11 @@ router.get('/person/:id',  (req, res) => {
         include: { model: positionModel },
     }).then((response) => {
         if(response) {
-            res.json(response);
+            let subPerson = [];
+            personModel.findAll({order: [['createdAt', 'DESC']], where: {managerId: response.id}}).then(person => {
+                subPerson = person;
+                res.json({person: response, subPerson: subPerson});
+            }).catch(err => console.error('Error when tried to get all answer by question id', err));
         }else {
             res.status(500).json({ message: 'Server error' });
         }

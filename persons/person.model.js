@@ -28,6 +28,10 @@ const personModel = connection.define('people', {
         type: Sequelize.STRING,
         allowNull: false,
     },
+    managerId: {
+        type: Sequelize.STRING,
+        allowNull: true,
+    }
 });
 
 positionModel.hasMany(personModel);
